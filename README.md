@@ -1,10 +1,11 @@
 # CI-CD-Pipeline-for-Web-App-using-Docker-Jenkins-and-AWS
-For Project
 
-CI/CD Pipeline for Web App using Docker, Jenkins, and AWS - Step-by-Step Guide
+
+**CI/CD Pipeline for Web App using Docker, Jenkins, and AWS - Step-by-Step Guide**
+
 This guide will walk you through setting up a CI/CD pipeline for a Node.js web application using Jenkins, Docker, and AWS EC2. The pipeline will automate build, testing, and deployment while integrating GitHub version control and AWS CloudWatch monitoring.
 
-Step 1: Setup AWS Infrastructure
+**Step 1: Setup AWS Infrastructure**
 Before setting up Jenkins and Docker, you need an AWS EC2 instance.
 
 1.1 Create an AWS EC2 Instance
@@ -23,7 +24,7 @@ Click Launch.
 ssh -i your-key.pem ubuntu@your-ec2-public-ip
 ```
 
-Step 2: Install Jenkins on AWS EC2
+**Step 2: Install Jenkins on AWS EC2**
 
 2.1 Install Java (Required for Jenkins)
 ```
@@ -52,7 +53,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 3.Enter the password and install suggested plugins.
 4.Create an admin user.
 
-Step 3: Install Docker
+**Step 3: Install Docker**
 
 Since the application will be containerized, install Docker.
 ```
@@ -68,13 +69,13 @@ sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
 ```
 
-Step 4: Setup GitHub Repository
+**Step 4: Setup GitHub Repository**
 
 Create a GitHub repository for the Node.js application.
 Push your Node.js project to GitHub.
 Ensure the repository has a Dockerfile and Jenkinsfile.
 
-Step 5: Configure Jenkins Pipeline
+**Step 5: Configure Jenkins Pipeline**
 
 5.1 Install Jenkins Plugins
 Go to Manage Jenkins → Plugin Manager and install:
@@ -99,7 +100,7 @@ Go to Manage Jenkins → Plugin Manager and install:
 - Set the branch as main or master.
 - Enter Jenkinsfile in the Script Path.
 
-Step 6: Write the Jenkinsfile
+**Step 6: Write the Jenkinsfile**
 
 Create a Jenkinsfile in your repository to define pipeline stages.
 ```
@@ -150,7 +151,7 @@ pipeline {
 }
 ```
 
-Step 7: Configure AWS CloudWatch Monitoring
+**Step 7: Configure AWS CloudWatch Monitoring**
 1. Install AWS CLI:
 ```
 sudo apt install awscli -y
@@ -163,7 +164,7 @@ aws logs create-log-group --log-group-name /webapp/logs
 3. Configure logging in your Node.js application.
 
 
-Step 8: Run the Pipeline
+**Step 8: Run the Pipeline**
 
 - Trigger a build in Jenkins.
 - Verify logs to check the pipeline execution.
@@ -173,21 +174,21 @@ http://your-ec2-public-ip
 ```
 - Check AWS CloudWatch for logs and metrics.
 
-Step 9: Automate Pipeline with Webhooks
+**Step 9: Automate Pipeline with Webhooks**
 
 - In GitHub → Settings → Webhooks, add a webhook:
   - Payload URL: http://your-jenkins-server/github-webhook/
   - Content type: application/json
   - Select "Just the push event"
 
-Step 10: Validate Deployment
+**Step 10: Validate Deployment**
 
 - Run docker ps on the EC2 instance to ensure the container is running.
 - Test the application by visiting the EC2 public IP.
 
 
 
-Final Architecture
+**Final Architecture**
 
 - Developer pushes code to GitHub.
 - Jenkins pulls code, builds Docker image, and pushes it to DockerHub.
